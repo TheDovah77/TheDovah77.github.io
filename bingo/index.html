@@ -1,29 +1,72 @@
 <!DOCTYPE HTML>
 <html lang="sv">
   <head>
-    <title>Test</title>
+    <title>Bingo</title>
 
     <style>
       h1 {
         text-align: center;
-        color: red;
+        color: navy;
+      }
+
+      u {
+        color: rgb(226, 52, 119);
+      }
+
+      body {
+        background-color: palevioletred;
       }
 
       canvas {
-        border: 2px solid purple;
+        border: 5px solid rgb(207, 49, 102);
         display: block;
+        padding: 0;
         margin: auto;
+        width: 270px;
+        background-color: white;
+        border-radius: 10%;
       }
+
+      .earlier-numbers{
+        padding: 6px;
+        color: navy;
+        font-size: x-large;
+        background-color: white;
+        height: 80px;
+        border-style: inset;
+        margin: 10px;
+      }
+
+      .next {
+        width: 120px;
+        height: 30px;
+        margin: 10px;
+        left: calc(50% - 150px);
+        position: absolute;
+        border-radius: 10px 10px 10px 10px;
+      }
+
+      .restart {
+        width: 120px;
+        height: 30px;
+        margin: 10px;
+        right: calc(50% - 150px);
+        position: absolute;
+        border-radius: 10px 10px 10px 10px;
+      }
+
     </style>
 
   </head>
 
   <body>
-    <h1>Testing testing</h1>
-    <p>test test test test test test test test test test test test test test test test test test test test test test test test test </p>
-    <canvas width="300px" height="300px"></canvas>
+    <u><h1>Bingo</h1></u>
+    <b><div id="earlierNumbers" class="earlier-numbers"></div></b>
 
-    <button onclick="roll()">Click</button>
+    <canvas width="270px" height="270px"></canvas>
+
+    <button id="next" class="next" onclick="roll()">Nästa tal</button>
+    <button id="restart" class="restart" onclick="restart()">Spela igen</button>
 
     <script>
       let canvas = document.querySelector("canvas");
@@ -32,7 +75,9 @@
       for (let i = 1; i <= 100; i++) {
         numbers.push(i);
       }
-      drawBingoBall(0)
+      drawBingoBall(100)
+      let earlierNumbers = "Tidigare tal: "
+      document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
 
       function drawCircle(color, radius, filled) {
         ctx.beginPath();
@@ -65,19 +110,19 @@
         } else if (num <= 100) {
           color = "Orange"
         }
-        drawCircle(color, 100, true);
-        drawCircle("White", 60, true);
-        drawCircle(color, 55, false);
+        drawCircle(color, 120, true);
+        drawCircle("White", 70, true);
+        drawCircle(color, 64, false);
 
         ctx.fillStyle = "Black";
         ctx.strokeStyle = "Black";
-        ctx.font = "30px Arial";
+        ctx.font = "50px Arial";
         if (num >= 10 && num < 100) {
-          ctx.fillText(num, x - 16, y + 10);
+          ctx.fillText(num, x - 27, y + 16);
         } else if (num < 10) {
-          ctx.fillText(num, x - 8, y + 10);
+          ctx.fillText(num, x - 13, y + 16);
         } else {
-          ctx.fillText(num, x - 25, y + 10);
+          ctx.fillText(num, x - 43, y + 16);
         }
 
       }
@@ -89,18 +134,40 @@
       }
 
       function roll() {
-        let counter = 0;
-        var myTimer = setInterval(function() { 
-          drawBingoBall(numbers[getRandomInt(0, numbers.length)]);
-          counter++;
-          if (counter === 10) {
-            pos = getRandomInt(0, numbers.length);
-            num = numbers[pos];
-            numbers = numbers.slice(0, pos).concat(numbers.slice(pos + 1));
-            drawBingoBall(num)
-            clearInterval(myTimer);
+        if (numbers.length != 0) {
+          let counterLim = getRandomInt(5, 21);
+          document.getElementById("next").disabled = true;
+          let counter = 0;
+          var myTimer = setInterval(function() { 
+            drawBingoBall(numbers[getRandomInt(0, numbers.length)]);
+            counter++;
+            if (counter === counterLim) {
+              pos = getRandomInt(0, numbers.length);
+              num = numbers[pos];
+              numbers = numbers.slice(0, pos).concat(numbers.slice(pos + 1));
+              drawBingoBall(num)
+              earlierNumbers += num.toString() + " ";
+              document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
+              document.getElementById("next").disabled = false;
+              clearInterval(myTimer);
+            }
+          }, 1);
+        } else {
+          drawBingoBall(num);
+        }
+      }
+
+      function restart() {
+        const response = confirm("Är du säker på att du vill starta om?");
+        if (response) {
+          numbers = [];
+          for (let i = 1; i <= 100; i++) {
+            numbers.push(i);
           }
-        }, 100);
+          drawBingoBall(0)
+          earlierNumbers = "Tidigare tal: "
+          document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
+        }
       }
     </script>
   </body>
