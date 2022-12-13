@@ -75,7 +75,7 @@
       for (let i = 1; i <= 100; i++) {
         numbers.push(i);
       }
-      drawBingoBall(0)
+      drawBingoBall(-1)
       let earlierNumbers = "Tidigare tal: "
       document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
 
@@ -97,17 +97,18 @@
         let x = canvas.width / 2;
         let y = canvas.height / 2;
         let color = ""
-        if (num <= 0 || num > 100) {
+        
+        if (num < 0 || num >= 100) {
           color = "Black"
-        } else if (num <= 20) {
+        } else if (num <= 19) {
           color = "Blue"
-        } else if (num <= 40) {
+        } else if (num <= 39) {
           color = "Red"
-        } else if (num <= 60) {
+        } else if (num <= 49) {
           color = "Gray"
-        } else if (num <= 80) {
+        } else if (num <= 79) {
           color = "Green"
-        } else if (num <= 100) {
+        } else if (num <= 99) {
           color = "Orange"
         }
         drawCircle(color, 120, true);
@@ -117,7 +118,9 @@
         ctx.fillStyle = "Black";
         ctx.strokeStyle = "Black";
         ctx.font = "50px Arial";
-        if (num >= 10 && num < 100) {
+        if (num == -1) {
+          ctx.fillText("", x - 27, y + 16);
+        } else if (num >= 10 && num < 100) {
           ctx.fillText(num, x - 27, y + 16);
         } else if (num < 10) {
           ctx.fillText(num, x - 13, y + 16);
@@ -164,7 +167,7 @@
           for (let i = 1; i <= 100; i++) {
             numbers.push(i);
           }
-          drawBingoBall(0)
+          drawBingoBall(-1)
           earlierNumbers = "Tidigare tal: "
           document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
         }

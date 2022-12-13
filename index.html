@@ -1,21 +1,75 @@
+
+
 <!DOCTYPE HTML>
 
 <html lang="sv">
   <head>
+    <style>
+
+      .void {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+      }
+
+      .star {
+        top: 50%;
+        right: 50%;
+        width: 10px;
+        height: 10px;
+        position: fixed;
+        border-radius: 100%;
+        background-color: yellow;
+        transition: transform 10s;
+        animation-name: right;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+      }
+
+      p {
+        color: aliceblue;
+      }
+
+      h1 {
+        color: aliceblue;
+      }
+
+      @keyframes right {
+        from{
+          transform: translateX(-200px)
+        }
+        to {
+          transform: translateX(200px);
+        }
+      }
+
+
+    </style>
+
     <title>Startsida</title>
   </head>
 
   <body>
-    <h1>Startsidan</h1>
-    <p>Detta är startsidan. Klicka på en av knapparna för att gå vidare!</p>
+    <div class="void">
 
-    <a href="TheDovah77.github.io/bingo">
-    <button>Bingo</button>
-    </a>
+      <h1>Startsidan</h1>
+      <p>Detta är startsidan. Klicka på en av knapparna för att gå vidare!</p>
+  
+      <a href="TheDovah77.github.io/bingo">
+      <button>Bingo</button>
+      </a>
+  
+      <a href="TheDovah77.github.io/counter">
+        <button>Räknare</button>
+      </a>
 
-    <a href="TheDovah77.github.io/counter">
-      <button>Räknare</button>
-    </a>
+      <div class="star"></div>
+    </div>
 
   </body>
 </html>
