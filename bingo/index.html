@@ -32,9 +32,22 @@
         color: navy;
         font-size: x-large;
         background-color: white;
-        height: 80px;
+        height: 100px;
         border-style: inset;
         margin: 10px;
+      }
+
+      .count{
+        position: absolute;
+        padding: 6px;
+        color: navy;
+        font-size: 50px;
+        background-color: white;
+        width: 160px;
+        height: 54px;
+        border-style: inset;
+        margin: 10px;
+        float: left;
       }
 
       .next {
@@ -62,6 +75,7 @@
   <body>
     <u><h1>Bingo</h1></u>
     <b><div id="earlierNumbers" class="earlier-numbers"></div></b>
+    <b><div id="count" class="count"></div></b>
 
     <canvas width="270px" height="270px"></canvas>
 
@@ -78,6 +92,7 @@
       drawBingoBall(-1)
       let earlierNumbers = "Tidigare tal: "
       document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
+      document.getElementById("count").innerHTML = 100 - numbers.length + "/100"
 
       function drawCircle(color, radius, filled) {
         ctx.beginPath();
@@ -151,6 +166,7 @@
               drawBingoBall(num)
               earlierNumbers += num.toString() + " ";
               document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
+              document.getElementById("count").innerHTML = 100 - numbers.length + "/100"
               document.getElementById("next").disabled = false;
               clearInterval(myTimer);
             }
@@ -170,6 +186,7 @@
           drawBingoBall(-1)
           earlierNumbers = "Tidigare tal: "
           document.getElementById("earlierNumbers").innerHTML = earlierNumbers;
+          document.getElementById("count").innerHTML = 100 - numbers.length + "/100"
         }
       }
     </script>
